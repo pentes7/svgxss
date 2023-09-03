@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Screenshot App</title>
+</head>
+<body>
+    <button id="captureButton">Capture Screenshot</button>
+
+    <script>
+        document.getElementById('captureButton').addEventListener('click', function() {
+            // Capture a screenshot of the current page
+            captureScreenshot();
+        });
+
+        function captureScreenshot() {
+            // Create a new HTML5 canvas element
+            var canvas = document.createElement('canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            var context = canvas.getContext('2d');
+
+            // Draw the content of the entire page onto the canvas
+            context.drawWindow(window, 0, 0, window.innerWidth, window.innerHeight, 'rgb(255,255,255)');
+
+            // Convert the canvas content to a data URL
+            var dataURL = canvas.toDataURL('image/png');
+
+            // Create a new anchor element to trigger download
+            var link = document.createElement('a');
+            link.href = dataURL;
+            link.download = 'screenshot.png';
+
+            // Trigger the download
+            link.click();
+        }
+    </script>
+</body>
+</html>
